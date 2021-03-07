@@ -115,6 +115,9 @@ class MovieListCell: UICollectionViewCell {
         
         imageView.load(urlString: movie.poster_path, size:
             CGSize( width: pageType == .detail ? detailImageSize : listImageSize, height: listImageSize), downloader: downloader)
+        
+        self.imageView.bounds = self.frame
+        self.imageView.addGradient(count: 5, index: 1)
     }
 
 }

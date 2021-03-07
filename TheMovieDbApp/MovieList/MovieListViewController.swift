@@ -159,6 +159,7 @@ private extension MovieListViewController {
         viewCollection.register(MovieListCell.self, forCellWithReuseIdentifier: "MovieListCell")
         viewCollection.isHidden = true
         viewCollection.showsHorizontalScrollIndicator = false
+        viewCollection.keyboardDismissMode = .onDrag
 
         view.addSubviewForAutoLayout(viewCollection)
         NSLayoutConstraint.activate([

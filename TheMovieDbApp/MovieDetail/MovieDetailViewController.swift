@@ -84,6 +84,8 @@ class MovieDetailViewController: UIViewController, MovieDetailDisplayLogic
     handlerMovieList.items = [movie!]
     handlerMovieList.pageType = .detail
     handlerMovieList.movieListDataDelegate = self
+        
+        self.title = movie?.title ?? ""
     
     viewCollection.dataSource = handlerMovieList
     viewCollection.delegate = handlerMovieList
