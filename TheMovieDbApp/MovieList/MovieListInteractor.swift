@@ -14,7 +14,7 @@ import UIKit
 
 protocol MovieListBusinessLogic
 {
-  func doSomething(request: MovieList.Something.Request)
+  func fetchData(currentPage: Int, searchKey: String?)
 }
 
 protocol MovieListDataStore
@@ -24,18 +24,34 @@ protocol MovieListDataStore
 
 class MovieListInteractor: MovieListBusinessLogic, MovieListDataStore
 {
-  var presenter: MovieListPresentationLogic?
-  var worker: MovieListWorker?
-  //var name: String = ""
+    var presenter: MovieListPresentationLogic?
+    var movies: [Movie] = []
   
-  // MARK: Do something
-  
-  func doSomething(request: MovieList.Something.Request)
-  {
-    worker = MovieListWorker()
-    worker?.doSomeWork()
-    
-    let response = MovieList.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    func fetchData(currentPage: Int,searchKey: String?)
+    {
+        if searchKey == nil {
+            loadData(page: currentPage, searchKey: "")
+            return
+        }else if searchKey == "" {
+            self.presenter?.presentMovie(movies: movies)
+            return
+        }
+        
+        let searchMovies = movies.filter {($0.title!.contains(searchKey!))}
+        
+        self.presenter?.presentMovie(movies: searchMovies)
+    }
+
+      func loadData(page: Int, searchKey: String) {
+          guard let url = MovieApi.urlForCategory(page: "\(page)", searchKey: searchKey) else {
+              print("load data error")
+              return
+          }
+
+          MovieApi.getMovies(url: url) { [weak self] (movies) in
+                guard let movies = movies else { return }
+                self?.movies = movies
+                self?.presenter?.presentMovie(movies: movies)
+          }
+      }
 }
