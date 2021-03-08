@@ -14,15 +14,15 @@ import UIKit
 
 protocol MovieDetailPresentationLogic
 {
-  func presentMovie(movie: Movie, selectedMovieIndex: Int)
+    func presentMovie(movie: Movie, selectedMovieIndex: Int)
 }
 
 class MovieDetailPresenter: MovieDetailPresentationLogic
 {
-  weak var viewController: MovieDetailDisplayLogic?
-  
-  func presentMovie(movie: Movie, selectedMovieIndex: Int)
-  {
-    viewController?.load(movie: movie, selectedMovieIndex: selectedMovieIndex)
-  }
+    weak var viewController: MovieDetailDisplayLogic?
+    
+    func presentMovie(movie: Movie, selectedMovieIndex: Int)
+    {
+        viewController?.load(movie: movie, selectedMovieIndex: selectedMovieIndex)
+    }
 }

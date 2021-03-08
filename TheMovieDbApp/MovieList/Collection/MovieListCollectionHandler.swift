@@ -15,24 +15,24 @@ protocol MovieListDataDelegate {
 }
 
 class MovieListCollectionHandler: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-
+    
     var items: [Movie] = []
     var movieListDataDelegate: MovieListDataDelegate?
     var pageType: MoviePageTye = .list
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 0
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         return UICollectionViewCell()
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = items[indexPath.row]
         self.movieListDataDelegate?.didSelectRow(movie: item, index: indexPath.row)
     }
-
+    
     @objc func tapBtnAction(_ sender: UITapGestureRecognizer) {
         if let index = sender.view?.tag {
             let item = items[index]

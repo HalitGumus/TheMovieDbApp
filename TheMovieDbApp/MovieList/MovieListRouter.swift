@@ -14,20 +14,20 @@ import UIKit
 
 protocol MovieListRoutingLogic
 {
-  func routeToMovieDetail(movie: Movie, index: Int)
+    func routeToMovieDetail(movie: Movie, index: Int)
 }
 
 protocol MovieListDataPassing
 {
-  var dataStore: MovieListDataStore? { get }
+    var dataStore: MovieListDataStore? { get }
 }
 
 class MovieListRouter: NSObject, MovieListRoutingLogic, MovieListDataPassing
 {
-  weak var viewController: MovieListViewController?
-  var dataStore: MovieListDataStore?
-  
-  // MARK: Routing
+    weak var viewController: MovieListViewController?
+    var dataStore: MovieListDataStore?
+    
+    // MARK: Routing
     
     func routeToMovieDetail(movie: Movie, index: Int) {
         let storyboard = UIStoryboard(name: "MovieDetail", bundle: nil)
@@ -38,11 +38,11 @@ class MovieListRouter: NSObject, MovieListRoutingLogic, MovieListDataPassing
         
         navigateToSomewhere(source: viewController!, destination: destinationVC)
     }
-
-  // MARK: Navigation
-  
-  func navigateToSomewhere(source: MovieListViewController, destination: MovieDetailViewController)
-  {
-    source.show(destination, sender: nil)
-  }
+    
+    // MARK: Navigation
+    
+    func navigateToSomewhere(source: MovieListViewController, destination: MovieDetailViewController)
+    {
+        source.show(destination, sender: nil)
+    }
 }

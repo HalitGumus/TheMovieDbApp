@@ -14,7 +14,7 @@ import UIKit
 
 protocol MovieDetailBusinessLogic
 {
-  func loadData()
+    func loadData()
 }
 
 protocol MovieDetailDataStore
@@ -25,16 +25,16 @@ protocol MovieDetailDataStore
 
 class MovieDetailInteractor: MovieDetailBusinessLogic, MovieDetailDataStore
 {
-  var presenter: MovieDetailPresentationLogic?
-  
+    var presenter: MovieDetailPresentationLogic?
+    
     
     var selectedMovie: Movie = Movie()
     var selectedMovieIndex: Int = 0
     
-  // MARK: Do something
-  
-  func loadData()
-  {
-    presenter?.presentMovie(movie: selectedMovie, selectedMovieIndex: selectedMovieIndex)
-  }
+    // MARK: Do something
+    
+    func loadData()
+    {
+        presenter?.presentMovie(movie: selectedMovie, selectedMovieIndex: selectedMovieIndex)
+    }
 }

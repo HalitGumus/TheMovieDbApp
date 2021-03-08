@@ -14,19 +14,19 @@ import UIKit
 
 protocol MovieListBusinessLogic
 {
-  func fetchData(currentPage: Int, searchKey: String?)
+    func fetchData(currentPage: Int, searchKey: String?)
 }
 
 protocol MovieListDataStore
 {
-  //var name: String { get set }
+    //var name: String { get set }
 }
 
 class MovieListInteractor: MovieListBusinessLogic, MovieListDataStore
 {
     var presenter: MovieListPresentationLogic?
     var movies: [Movie] = []
-  
+    
     func fetchData(currentPage: Int,searchKey: String?)
     {
         if searchKey == nil {
@@ -41,17 +41,17 @@ class MovieListInteractor: MovieListBusinessLogic, MovieListDataStore
         
         self.presenter?.presentMovie(movies: searchMovies)
     }
-
-      func loadData(page: Int, searchKey: String) {
-          guard let url = MovieApi.urlForCategory(page: "\(page)", searchKey: searchKey) else {
-              print("load data error")
-              return
-          }
-
-          MovieApi.getMovies(url: url) { [weak self] (movies) in
-                guard let movies = movies else { return }
-                self?.movies = movies
-                self?.presenter?.presentMovie(movies: movies)
-          }
-      }
+    
+    func loadData(page: Int, searchKey: String) {
+        guard let url = MovieApi.urlForCategory(page: "\(page)", searchKey: searchKey) else {
+            print("load data error")
+            return
+        }
+        
+        MovieApi.getMovies(url: url) { [weak self] (movies) in
+            guard let movies = movies else { return }
+            self?.movies = movies
+            self?.presenter?.presentMovie(movies: movies)
+        }
+    }
 }

@@ -9,14 +9,14 @@
 import UIKit
 
 class MovieListHandler: MovieListCollectionHandler {
-
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return items.count
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieListCell.identifier, for: indexPath) as! MovieListCell
-
+        
         let movie = items[indexPath.row]
         cell.load(movie: movie, downloader: ImageDownloader.shared, pageType: pageType)
         
@@ -26,7 +26,7 @@ class MovieListHandler: MovieListCollectionHandler {
         
         return cell
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if pageType == .detail {
             return collectionView.frame.size
@@ -36,9 +36,9 @@ class MovieListHandler: MovieListCollectionHandler {
         let cellHeight = collectionView.frame.size.height/2
         return CGSize(width: cellWidth, height: cellHeight)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .zero
     }
-
+    
 }

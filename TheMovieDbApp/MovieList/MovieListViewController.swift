@@ -14,14 +14,14 @@ import UIKit
 
 protocol MovieListDisplayLogic: class
 {
-  func load(movies: [Movie])
+    func load(movies: [Movie])
 }
 
 class MovieListViewController: UIViewController, MovieListDisplayLogic
 {
-  var interactor: MovieListBusinessLogic?
-  var router: (NSObjectProtocol & MovieListRoutingLogic & MovieListDataPassing)?
-
+    var interactor: MovieListBusinessLogic?
+    var router: (NSObjectProtocol & MovieListRoutingLogic & MovieListDataPassing)?
+    
     var viewCollection: UICollectionView!
     
     var handlerMovieList: MovieListHandler = MovieListHandler()
@@ -29,56 +29,56 @@ class MovieListViewController: UIViewController, MovieListDisplayLogic
     var searchText: String = ""
     var currentPage: Int = 1
     
-  // MARK: Object lifecycle
-  
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    setup()
-  }
-  
-  required init?(coder aDecoder: NSCoder)
-  {
-    super.init(coder: aDecoder)
-    setup()
-  }
-  
-  // MARK: Setup
-  
-  private func setup()
-  {
-    let viewController = self
-    let interactor = MovieListInteractor()
-    let presenter = MovieListPresenter()
-    let router = MovieListRouter()
-    viewController.interactor = interactor
-    viewController.router = router
-    interactor.presenter = presenter
-    presenter.viewController = viewController
-    router.viewController = viewController
-    router.dataStore = interactor
-  }
-  
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
+    // MARK: Object lifecycle
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
+    {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
     }
-  }
-  
-  // MARK: View lifecycle
-  
-  override func viewDidLoad()
-  {
-    super.viewDidLoad()
-    configure()
-    load()
-  }
+    
+    required init?(coder aDecoder: NSCoder)
+    {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    // MARK: Setup
+    
+    private func setup()
+    {
+        let viewController = self
+        let interactor = MovieListInteractor()
+        let presenter = MovieListPresenter()
+        let router = MovieListRouter()
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
+    }
+    
+    // MARK: Routing
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if let scene = segue.identifier {
+            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
+            if let router = router, router.responds(to: selector) {
+                router.perform(selector, with: segue)
+            }
+        }
+    }
+    
+    // MARK: View lifecycle
+    
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        configure()
+        load()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -89,26 +89,28 @@ class MovieListViewController: UIViewController, MovieListDisplayLogic
             ApplicationStorageManager.shared.resetRefreshMovie()
         }
     }
-  
-  func load()
-  {
-    interactor?.fetchData(currentPage: currentPage, searchKey: nil)
-  }
-  
-  func load(movies: [Movie]) {
-    updateVisibility()
-    handlerMovieList.items = movies
-    handlerMovieList.movieListDataDelegate = self
     
-    viewCollection.dataSource = handlerMovieList
-    viewCollection.delegate = handlerMovieList
+    func load()
+    {
+        interactor?.fetchData(currentPage: currentPage, searchKey: nil)
+    }
     
-    viewCollection.reloadData()
-  }
-
+    func load(movies: [Movie]) {
+        updateVisibility()
+        handlerMovieList.items = movies
+        handlerMovieList.movieListDataDelegate = self
+        
+        viewCollection.dataSource = handlerMovieList
+        viewCollection.delegate = handlerMovieList
+        
+        viewCollection.reloadData()
+        
+        self.viewCollection.setContentOffset(CGPoint(x:0,y:0), animated: true)
+    }
+    
     func updateVisibility() {
         viewCollection.isHidden = false
-
+        
         viewCollection.isPagingEnabled = true
     }
     
@@ -126,7 +128,7 @@ class MovieListViewController: UIViewController, MovieListDisplayLogic
 }
 
 private extension MovieListViewController {
-
+    
     func configure() {
         view.backgroundColor = .systemGray6
         configureNavigation()
@@ -143,7 +145,7 @@ private extension MovieListViewController {
         nextBarButton.tintColor = .darkGray
         
         navigationItem.leftBarButtonItems = [backBarButton, nextBarButton]
-
+        
         let searchBar:UISearchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width/2, height: 20))
         searchBar.placeholder = "Search Movie"
         searchBar.delegate = self
@@ -160,7 +162,7 @@ private extension MovieListViewController {
         viewCollection.isHidden = true
         viewCollection.showsHorizontalScrollIndicator = false
         viewCollection.keyboardDismissMode = .onDrag
-
+        
         view.addSubviewForAutoLayout(viewCollection)
         NSLayoutConstraint.activate([
             viewCollection.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
