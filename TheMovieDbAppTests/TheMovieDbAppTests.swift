@@ -10,25 +10,47 @@ import XCTest
 @testable import TheMovieDbApp
 
 class TheMovieDbAppTests: XCTestCase {
-
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    func testUserDefaultsPropertyWrapperSetter() throws {
+        // When
+        let category = MovieCategory.action
+        UserDefaultsConfig.savedCategory = category
+        
+        // Then
+        let value = UserDefaultsConfig.savedCategory
+        XCTAssertTrue(value.rawValue == category.rawValue)
     }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    func testViewStyleIsTable() {
+        // When
+        let style = MovieViewModel.Style.movieList
+        
+        // Then
+        XCTAssertFalse(style.isTable)
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    func testChangingCategoryConfiguration() throws {
+        // Given
+        var settings = Settings()
+        
+        // When
+        let category = MovieCategory.comedy
+        settings.category = category
+        
+        // Then
+        XCTAssertTrue(settings.category.rawValue == category.rawValue)
     }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testChangingStyleConfiguration() throws {
+        // Given
+        var settings = Settings()
+        
+        // When
+        let style = MovieViewModel.Style.movieList
+        settings.style = style
+        
+        // Then
+        XCTAssertTrue(settings.style.rawValue == style.rawValue)
     }
-
+    
 }

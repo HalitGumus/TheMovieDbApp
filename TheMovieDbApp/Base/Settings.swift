@@ -10,19 +10,19 @@ import Foundation
 
 struct Settings {
     static var shared = Settings()
-
+    
     static let StyleKey = "style"
     static let CategoryKey = "category"
-
+    
     static let StyleDefault: MovieViewModel.Style = .movieList
-    static let CategoryDefault: MovieCategory = .general
-
+    static let CategoryDefault: MovieCategory = .action
+    
     var category: MovieCategory = UserDefaultsConfig.savedCategory {
         didSet {
             UserDefaultsConfig.savedCategory = category
         }
     }
-
+    
     var style: MovieViewModel.Style = UserDefaultsConfig.savedStyle {
         didSet {
             UserDefaultsConfig.savedStyle = style
@@ -33,7 +33,7 @@ struct Settings {
 struct UserDefaultsConfig {
     @UserDefault(Settings.CategoryKey, defaultValue: Settings.CategoryDefault)
     static var savedCategory: MovieCategory
-
+    
     @UserDefault(Settings.StyleKey, defaultValue: Settings.StyleDefault)
     static var savedStyle: MovieViewModel.Style
 }
