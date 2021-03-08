@@ -74,13 +74,14 @@ class MovieViewModel {
     enum Style: String, CaseIterable, Codable {
         
         case movieList
+        case detailList
         
         var display: String {
             switch self {
             case .movieList:
                 return "movieList"
-            default:
-                return self.rawValue.capitalized
+            case .detailList:
+                return "detailList"
             }
         }
         
@@ -88,14 +89,16 @@ class MovieViewModel {
             switch self {
             case .movieList:
                 return false
-            default:
-                return true
+            case .detailList:
+                return false
             }
         }
         
         var identifiers: [String] {
             switch self {
             case .movieList:
+                return [MovieListCell.identifier]
+            case .detailList:
                 return [MovieListCell.identifier]
             }
         }

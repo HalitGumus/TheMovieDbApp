@@ -26,8 +26,8 @@ class MovieListViewController: UIViewController, MovieListDisplayLogic
     
     var handlerMovieList: MovieListHandler = MovieListHandler()
     
-    var searchText: String = ""
-    var currentPage: Int = 1
+    private var searchText: String = ""
+    private var currentPage: Int = 1
     
     // MARK: Object lifecycle
     
@@ -129,13 +129,13 @@ class MovieListViewController: UIViewController, MovieListDisplayLogic
 
 private extension MovieListViewController {
     
-    func configure() {
+    private func configure() {
         view.backgroundColor = .systemGray6
         configureNavigation()
         configureViewCollection()
     }
     
-    func configureNavigation() {
+    private func configureNavigation() {
         let backBarButton = UIBarButtonItem(image: nil, style: .plain, target: self, action: #selector(backPageButton))
         backBarButton.title = "Page Back /"
         backBarButton.tintColor = .systemGray
@@ -153,7 +153,7 @@ private extension MovieListViewController {
         self.navigationItem.rightBarButtonItem = rightNavBarButton
     }
     
-    func configureViewCollection() {
+    private func configureViewCollection() {
         let identifiers = MovieViewModel.Style.allCases
             .filter { !$0.isTable }
             .flatMap { $0.identifiers }

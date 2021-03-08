@@ -42,7 +42,7 @@ class MovieListInteractor: MovieListBusinessLogic, MovieListDataStore
         self.presenter?.presentMovie(movies: searchMovies)
     }
     
-    func loadData(page: Int, searchKey: String) {
+    private func loadData(page: Int, searchKey: String) {
         guard let url = MovieApi.urlForCategory(page: "\(page)", searchKey: searchKey) else {
             print("load data error")
             return

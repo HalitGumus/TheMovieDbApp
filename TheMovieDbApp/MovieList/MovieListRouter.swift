@@ -41,7 +41,7 @@ class MovieListRouter: NSObject, MovieListRoutingLogic, MovieListDataPassing
     
     // MARK: Navigation
     
-    func navigateToSomewhere(source: MovieListViewController, destination: MovieDetailViewController)
+    private func navigateToSomewhere(source: MovieListViewController, destination: MovieDetailViewController)
     {
         source.show(destination, sender: nil)
     }

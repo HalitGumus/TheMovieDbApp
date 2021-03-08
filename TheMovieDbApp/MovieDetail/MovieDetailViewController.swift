@@ -104,12 +104,12 @@ class MovieDetailViewController: UIViewController, MovieDetailDisplayLogic
 
 private extension MovieDetailViewController {
     
-    func configure() {
+    private func configure() {
         view.backgroundColor = .systemGray6
         configureViewCollection()
     }
     
-    func configureViewCollection() {
+    private func configureViewCollection() {
         let identifiers = MovieViewModel.Style.allCases
             .filter { !$0.isTable }
             .flatMap { $0.identifiers }
