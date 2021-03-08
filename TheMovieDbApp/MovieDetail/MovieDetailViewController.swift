@@ -106,6 +106,7 @@ private extension MovieDetailViewController {
     
     private func configure() {
         view.backgroundColor = .systemGray6
+        self.navigationController?.navigationBar.tintColor = .systemGray
         configureViewCollection()
     }
     
